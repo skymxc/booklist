@@ -1,0 +1,22 @@
+<view class='container'>
+  <view wx:if='{{enableEmpty}}' class='container-empty '>
+
+    <view class='container-empty-list'>
+      <image src='../../images/shuji.png' class='image-empty'></image>
+      <text class='text-empty'>还没有自己的书单，去创建一个吧</text>
+      <button class='button-create-booklist' type='primary' bindtap='tapCreateBooklist'>创建书单</button>
+    </view>
+  </view>
+  <view wx:if='{{bookList.length>0}}' class='container-booklist'>
+    <block wx:for='{{bookList}}' wx:for-item='book' wx:key='_id'>
+      <view class='container-book' data-book='{{book}}' bindtap='tapBook'>
+        <text class='text-book-name'>{{book.name}}</text>
+        <text class='text-book-description'>{{book.description}}</text>
+      </view>
+    </block>
+  </view>
+  <view wx:if='{{bookList.length>0}}' class='container-create' bindtap='tapCreateBooklist'>
+    创建书单
+  </view>
+
+</view>

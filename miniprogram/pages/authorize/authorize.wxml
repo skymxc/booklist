@@ -1,0 +1,12 @@
+<view class='container'>
+  <view class='container-image'>
+    <image src='../../images/icon.png' class='image-icon'></image>
+  </view>
+  <view class='line'></view>
+  <view class='container-text'>
+    <text class='text-request'>申请获取以下权限</text>
+    <text class='text-permiession'>获得你的公开信息（昵称，头像等）</text>
+  </view>
+
+  <button type='primary' class='button-login' open-type='getUserInfo' bindgetuserinfo='onGetUserInfo' bindtap='tapAuthLogin'>授权登录</button>
+</view>
