@@ -106,6 +106,10 @@ Page({
       });
   },
   tapCreateBooklist: function() {
+    if(this.data.bookList.length>=20){
+      app.showErrNoCancel('提示', '最多创建20个书单，目前：' + this.data.bookList.length)
+      return;
+    }
     app.showLoadingMask('请稍后');
     wx.navigateTo({
       url: '../createBooklist/createBooklist',
