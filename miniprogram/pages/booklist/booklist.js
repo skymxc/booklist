@@ -7,8 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pageIndex: 0,
-    pageSize: 20,
     bookList: [],
     enableEmpty: false
   },
@@ -71,9 +69,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    this.setData({
-      pageIndex:0
-    })
+    
     this.loadBookList(true);
   },
 
@@ -81,14 +77,14 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    this.loadBookList(false);
+    // this.loadBookList(false);
   },
   loadBookList: function(refresh) {
     app.showLoading("加载中");
     var that = this;
     db.collection('book_list').where({
         _openid: app.globalData.opendid
-      }).skip(this.data.pageIndex).limit(this.data.pageSize).get()
+      }).get()
       .then(res => {
         wx.hideLoading();
         wx.stopPullDownRefresh();
@@ -102,7 +98,7 @@ Page({
         }
         that.setData({
           bookList: that.data.bookList,
-          pageIndex: that.data.pageIndex,
+         
           enableEmpty: that.data.bookList.length == 0
         });
       }).catch(error => {
