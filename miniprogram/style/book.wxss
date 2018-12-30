@@ -1,0 +1,37 @@
+/*  书 卡片 */
+
+.container-book {
+  /* -moz-box-shadow: 0px 0px 5px #333;
+  -webkit-box-shadow: 0px 0px 5px #333;
+  box-shadow: 0px 0px 5px #333; */
+  background-color: rgb(245, 245, 245);
+  width: 90%;
+  margin: 10rpx 20rpx 10rpx 20rpx;
+  max-height: 150rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+  
+}
+
+.text-book-name {
+  color: black;
+  font-weight: bold;
+  font-size: 35rpx;
+  display: block;
+  line-height: 35rpx;
+  margin-bottom: 10rpx;
+   text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-book-description {
+  color: #bcbcbc;
+  font-size: 30rpx;
+  flex: 1;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

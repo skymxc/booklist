@@ -27,7 +27,7 @@ Page({
       this.loadBookList(true);
     } else {
 
-
+      var that = this;
       app.showLoadingMask('正在检查授权');
       app.handlePermissionAndGetUserInfo().then(res => {
         if (res.auth) {
@@ -36,9 +36,7 @@ Page({
           app.login().then(res => {
             wx.hideLoading();
             //获取数据 booklist
-            wx.startPullDownRefresh({
-
-            });
+            that.loadBookList(true);
           }).catch(error => {
 
             app.showErrNoCancel("登陆失败", error.errMsg);
@@ -124,6 +122,12 @@ Page({
   },
   tapBook: function(event) {
     var book = event.currentTarget.dataset.book;
-    console.log(book);
+    app.showLoadingMask('请稍后');
+    wx.navigateTo({
+      url: '../listDetail/listDetail?_id='+book._id,
+      success:function(){
+        wx.hideLoading();
+      }
+    })
   }
 })

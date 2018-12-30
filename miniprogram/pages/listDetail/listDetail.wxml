@@ -1,0 +1,31 @@
+<view class='container'>
+  <view class='container-books' wx:if='{{books.length>0}}'>
+    <block wx:for='{{books}}' wx:for-item='book' wx:key='_id'>
+      <view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='tapBook'>
+        <text class='text-book-name'>{{book.name}}</text>
+        <text class='text-book-description'>{{book.description}}</text>
+      </view>
+    </block>
+  </view>
+  <view class='container-controller' wx:if='{{books.length>0}}'>
+    <button class='button-share button-controller' open-type='share'>分享</button>
+    <button class='button-edit button-controller' bindtap='tapEdit'>编辑</button>
+    <button class='button-add button-controller' bindtap='tapAddBook'>添加</button>
+  </view>
+
+  <view class='container-empty' wx:if='{{empty}}'>
+    <image src='../../images/shuji.png' class='image-empty'></image>
+    <text class='text-empty'>书单中尚没有书籍</text>
+    <button class='button-add-book' type='primary' bindtap='tapAddBook'>添加书籍</button>
+  </view>
+
+  <view class='container-select {{selectVisibleClass}}'>
+    <view class='select-cover'></view>
+
+    <view class='container-select-list'>
+      <view class='select-edit select' bindtap='tapEditBook'>编辑</view>
+      <view class='select-delete select' bindtap='tapDelBook'>删除</view>
+      <view class='select-cancel select' bindtap='tapCancelSelect'>取消</view>
+    </view>
+  </view>
+</view>
