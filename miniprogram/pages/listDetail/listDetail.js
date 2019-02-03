@@ -119,6 +119,9 @@ Page({
         that.setData({
           books: res.data
         });
+        that.setData({
+          empty: false
+        });
       } else {
         that.setData({
           empty: true
@@ -171,13 +174,12 @@ Page({
       tapIndex: index,
       selectVisibleClass: ''
     });
-
   },
   /**
    * 编辑书单
    */
   tapEdit: function() {
-
+   
   },
   /**
    * 取消选择
@@ -204,8 +206,10 @@ Page({
               books:that.data.books,
               tapBook:{},
               tapIndex:-1,
-              selectVisibleClass: 'hide'
+              selectVisibleClass: 'hide',
+              empty:that.data.books.length==0
             })
+
         }else{
           app.showErrNoCancel('删除失败！','removed==0');
         }
@@ -218,6 +222,18 @@ Page({
    * 编辑书籍
    */
   tapEditBook: function() {
+    var book = this.data.tapBook;
     this.tapCancelSelect();
+    app.showLoadingMask('请稍候');
+    wx.navigateTo({
+      url: '../editbook/editbook?_id='+book._id+'&name='+book.name+'&description='+book.description+'&booklist_id='+book.booklist_id,
+      success:function(){
+        wx.hideLoading();
+      },
+      fail:function(error){
+        app.showErrNoCancel('跳转错误',error.errMsg);
+      }
+    })
+  
   }
 })

@@ -10,7 +10,7 @@ Page({
     booklist_id:'XB9TWsDR1TiNDAap'
   },
   onLoad:function(event){
-    console.log(event);
+    
     this.setData({
       booklist_id:event.booklist_id
     })

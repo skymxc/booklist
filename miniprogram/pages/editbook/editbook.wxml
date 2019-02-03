@@ -1,0 +1,13 @@
+<!--编辑书籍-->
+
+<view class='container'>
+  <form class='form' bindsubmit='formSubmit'>
+  <view class='container-form'>
+    <input class='input-text input-book-name' name='name' placeholder='书籍名称' value='{{book.name}}'></input>
+
+       <textarea name='description' class='textarea-description textarea-book-desc' maxlength='140' placeholder='书籍描述' auto-height='true' value='{{book.description}}'></textarea>
+     
+       <button class='button-save' form-type='submit'>保存</button>
+  </view>
+  </form>
+</view>

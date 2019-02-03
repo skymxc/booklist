@@ -1,0 +1,43 @@
+/* miniprogram/pages/editbook/editbook.wxss */
+/* miniprogram/pages/addbook/addbook.wxss */
+
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.form {
+  width: 100%;
+  height: 100%;
+}
+
+.container-form {
+  width: 100%;
+  padding-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@import "../../style/book.wxss";
+
+.input-book-name {
+  background-color: white;
+  min-height: 90rpx;
+}
+
+.textarea-book-desc {
+  background-color: white;
+  min-height: 150rpx;
+}
+
+.text-hint {
+  color: #c9c9c9;
+  font-size: 25rpx;
+  display: block;
+  margin-top: 50rpx;
+}
+
+.button-save {
+  margin-top: 10rpx;
+  width: 95%;
+}
