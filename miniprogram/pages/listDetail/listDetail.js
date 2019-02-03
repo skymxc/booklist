@@ -25,7 +25,7 @@ Page({
       this.setData({
         _id:options._id
       });
-        this.loadBooklist();
+        
     }else{
       wx.showModal({
         title: '提示',
@@ -37,6 +37,11 @@ Page({
           });
         }
       })
+    }
+  },
+  onShow:function(){
+    if(this.data._id.length>0){
+      this.loadBooklist();
     }
   },
   /**
@@ -143,6 +148,16 @@ Page({
         app.showErrNoCancel('提示','每个书单最多添加20本书');
           return;
       }
+      app.showLoadingMask('请稍候')
+      wx.navigateTo({
+        url:'../addbook/addbook?booklist_id='+this.data._id,
+        success:function(){
+          wx.hideLoading();
+        },
+        fail:function(error){
+          app.showErrNoCancel('跳转异常',error.errMsg);
+        }
+      });
 
   },
   /**

@@ -1,0 +1,11 @@
+<view class='container'>
+  <form class='form' bindsubmit='formSubmit'>
+  <view class='container-form'>
+    <input class='input-text input-book-name' name='name' placeholder='书籍名称' ></input>
+
+       <textarea name='description' class='textarea-description textarea-book-desc' maxlength='140' placeholder='书籍描述' auto-height='true'></textarea>
+      <text class='text-hint'>每个书单最多添加20本书籍</text>
+       <button class='button-add' form-type='submit'>添加</button>
+  </view>
+  </form>
+</view>

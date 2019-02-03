@@ -35,3 +35,22 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+.input-text{
+  border: 1rpx #F2F2F2 solid;
+  border-radius: 5rpx;
+  width: 95%;
+  padding-left: 10rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+
+}
+textarea{
+  border: 1rpx #F2F2F2 solid;
+  border-radius: 5rpx;
+  width: 95%;
+  padding: 5rpx;
+   font-size: 30rpx;
+   margin-top: 20rpx;
+   min-height: 100rpx;
+}

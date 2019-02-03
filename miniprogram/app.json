@@ -2,8 +2,9 @@
   "cloud": true,
   "pages": [
     "pages/booklist/booklist",
-    "pages/listDetail/listDetail",
+    "pages/addbook/addbook",
     
+    "pages/listDetail/listDetail",
     "pages/createBooklist/createBooklist",
     "pages/authorize/authorize"
     
