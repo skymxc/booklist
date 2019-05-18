@@ -9,7 +9,7 @@
   </view>
   <view class='container-controller' wx:if='{{books.length>0}}'>
     <button class='button-share button-controller' open-type='share'>分享</button>
-    <button class='button-edit button-controller' bindtap='tapEdit'>编辑</button>
+    <!-- <button class='button-edit button-controller' bindtap='tapEdit'>编辑</button> -->
     <button class='button-add button-controller' bindtap='tapAddBook'>添加</button>
   </view>
 

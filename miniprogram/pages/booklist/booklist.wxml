@@ -1,4 +1,7 @@
 <view class='container'>
+ <i-modal title="{{modalTitle}}" visible="{{ modalVisible }}" actions="{{ modalActions }}" bind:click="handleModalClick">
+    <view>{{modalContent}}</view>
+</i-modal>
   <view wx:if='{{enableEmpty}}' class='container-empty '>
 
     <view class='container-empty-list'>
@@ -9,14 +12,20 @@
   </view>
   <view wx:if='{{bookList.length>0}}' class='container-booklist'>
     <block wx:for='{{bookList}}' wx:for-item='book' wx:key='_id'>
-      <view class='container-book' data-book='{{book}}' bindtap='tapBook'>
+      <view class='container-book' data-book='{{book}}' bindtap='tapBook' data-index='{{index}}' bindlongpress='longTapBook'>
         <text class='text-book-name'>{{book.name}}</text>
         <text class='text-book-description'>{{book.description}}</text>
       </view>
     </block>
   </view>
-  <view wx:if='{{bookList.length>0}}' class='container-create' bindtap='tapCreateBooklist'>
-    创建书单
-  </view>
+ 
+
+<button class='btn-float btn-kefu ' open-type='contact'>
+<image src='../../images/kefu.png' class=' image-kefu'></image>
+</button>
+ 
+ 
+  <image wx:if='{{bookList.length>0}}' src='../../images/add.png' class='image-icon image-add' bindtap='tapCreateBooklist'></image>
+ 
 
 </view>

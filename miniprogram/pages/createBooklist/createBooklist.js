@@ -62,8 +62,8 @@ Page({
         tagArray = tag.split(' ');
         
     }
-    var privateCB = value.private;
-    var publicCB = privateCB.length==0;
+    // var privateCB = value.private;
+    // var publicCB = privateCB.length==0;
 
     if(name.length==0){
       wx.showToast({
@@ -76,8 +76,8 @@ Page({
     var booklist = {
       name:name,
       description:description,
-      tag:tagArray,
-      public:publicCB
+      tag:tagArray
+      // public:publicCB
     };
     app.showLoadingMask('请稍后');
     db.collection('book_list').add({

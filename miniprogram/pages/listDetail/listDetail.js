@@ -49,7 +49,8 @@ Page({
    */
   onShareAppMessage: function() {
     return {
-      title: this.data.booklist.name
+      title: this.data.booklist.name,
+      path:'/pages/booklistshare/booklistshare?_id='+this.data.booklist._id
     }
   },
   /**

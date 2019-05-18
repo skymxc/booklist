@@ -17,9 +17,9 @@
       </block>
     </view>
 
-<checkbox-group name='private' class='checkbox-private'>
+<!-- <checkbox-group name='private' class='checkbox-private'>
     <checkbox value='private'>私密</checkbox>
-</checkbox-group>
+</checkbox-group> -->
     <button class='button-create' form-type='submit'>创建</button>
 </view>
   </form>

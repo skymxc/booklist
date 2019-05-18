@@ -20,8 +20,9 @@
   border-radius: 5rpx;
   width: 95%;
   padding-left: 10rpx;
-  line-height: 30rpx;
+  line-height: 40rpx;
   font-size: 30rpx;
+  min-height: 60rpx;
 
 }
 

@@ -8,7 +8,21 @@ Page({
    */
   data: {
     bookList: [],
-    enableEmpty: false
+    enableEmpty: false,
+    modalTitle:'',
+    modalVisible:false,
+    modalContent:'请选择操作',
+    modalActions:[{
+      name:'删除',
+      color:'red'
+    },{
+      name:'编辑',
+      color:'green'
+    },{
+      name:'取消'
+    }],
+    modalBook:{},
+    modalBookIndex:-1
   },
 
   /**
@@ -81,7 +95,7 @@ Page({
     app.showLoading("加载中");
     var that = this;
     db.collection('book_list').where({
-        _openid: app.globalData.opendid
+        _openid: app.globalData.openid
       }).get()
       .then(res => {
         wx.hideLoading();
@@ -129,5 +143,75 @@ Page({
         wx.hideLoading();
       }
     })
+  },
+  longTapBook: function (event){
+    var book = event.currentTarget.dataset.book;
+    var index = event.currentTarget.dataset.index;
+    this.setData({
+      modalBook:book,
+      modalTitle:book.name,
+      modalVisible:true,
+      modalBookIndex:index
+    })
+  },
+  handleModalClick: function ({ detail }){
+    const index = detail.index;
+    var that =this;
+    if (index === 0) {
+      
+      app.showLoadingMask('删除中');
+      var that =this;
+      db.collection('book_list')
+      .doc(this.data.modalBook._id).remove()
+      .then(res=>this.handleDelBooklist(res))
+      .then(res=>{
+        console.log('删除所属书籍-',res)
+        wx.hideLoading();
+        if(res){
+          wx.showToast({
+            title: '删除成功',
+          })
+          that.data.bookList.splice(that.data.modalBookIndex, 1);
+          that.setData({
+            bookList: that.data.bookList
+          })
+        }
+      })
+      .catch(error=>{
+        app.showErrNoCancel('删除失败',error.errMsg);
+      })
+    } else if (index === 1) {
+      app.showLoadingMask('请稍后');
+      wx.setStorage({
+        key: 'editbooklist',
+        data: that.data.modalBook,
+        success:function(){
+          app.navigateTo('../editBooklist/editBooklist')
+        },
+        fail:function(err){
+          app.showErrNoCancel('编辑失败',err.errMsg);
+        }
+      })
+    }
+
+    this.setData({
+      modalVisible: false
+    });
+  },
+  handleDelBooklist(res){
+    if (res.stats.removed == 1) {
+      //删除书单里的书籍
+      var that =this;
+       return wx.cloud.callFunction({
+        name:'delBookBylistId',
+        data:{
+          listid:that.data.modalBook._id
+        }
+      });
+      
+    } else {
+     
+      app.showToast('删除失败')
+    }
   }
 })

@@ -1,21 +1,25 @@
 {
   "cloud": true,
   "pages": [
-   
     "pages/booklist/booklist",
+    "pages/booklistshare/booklistshare",
     "pages/editbook/editbook",
     "pages/addbook/addbook",
     "pages/listDetail/listDetail",
     "pages/createBooklist/createBooklist",
-    "pages/authorize/authorize"
-   
+    "pages/authorize/authorize",
+    "pages/editBooklist/editBooklist"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "sky书单",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": false
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "i-modal": "dist/modal/index"
   }
 }

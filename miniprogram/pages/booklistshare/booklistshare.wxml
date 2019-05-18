@@ -1,0 +1,40 @@
+<!--书单分享页-->
+<view class='container'>
+
+  <!-- 名字及作者信息 -->
+  <view class='container-author'>
+    <view class='vertical-line'></view>
+    <view class='container-author-text'>
+      <text class='text-booklist-name'>{{bl.name}}</text>
+      <text class='text-author-name'>{{author.nickName}} </text>
+    </view>
+  </view>
+
+  <!-- 描述 -->
+  <view class='container-description'>
+    {{bl.description}} 
+
+  </view>
+  <!-- 书籍列表 -->
+  <scroll-view class='scroll-book' wx:if='{{books.length>0}}' scroll-y>
+    <block wx:for='{{books}}' wx:for-item='book' wx:key='_id'>
+      <view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='tapBook'>
+        <text class='text-book-name'>{{book.name}}</text>
+        <text class='text-book-description'>{{book.description}}</text>
+      </view>
+    </block>
+  </scroll-view> 
+  <!--没有书籍时 -->
+  <view class='contianer-empty' wx:else>
+    没有添加书籍
+  </view>
+  <!-- 操作按钮组 -->
+  <view class='container-tool'>
+    <button open-type='share' class='button-share button-tool'>
+      分享
+    </button>
+    <button class='button-index button-tool' bindtap='tapIndex'>首页</button>
+  </view>
+
+  
+</view>

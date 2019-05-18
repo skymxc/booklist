@@ -28,9 +28,25 @@ App({
     // console.log('onError occur error :'+error);
   },
   onPageNotFound: function(options) {
-    wx.showToast({
-      title: '页面去旅游了，还没有回来',
+    console.log('onPageNotFound',options)
+
+    wx.showModal({
+      title: '提示',
+      content: '暂时无法展示'+options.path,
+      showCancel:false,
+      success:function(){
+        wx.redirectTo({
+          url: '/pages/booklist/booklist',
+          fail:function(err){
+            wx.showToast({
+              title: err.errMsg,
+            })
+          }
+        })
+      }
     })
+   
+    //this.navigateTo('pages/booklist/booklist')
   },
   formatDate: function(fmt, date) { //author: meizz   
     var o = {
@@ -80,7 +96,8 @@ App({
 
     var db = wx.cloud.database();
     var user = {
-      info: this.globalData.userInfo
+      info: this.globalData.userInfo,
+      nickName:this.globalData.userInfo.nickName
     };
     return db.collection('user').add({
       data: user
@@ -116,7 +133,8 @@ App({
         name: 'login',
 
       }).then(res => {
-        that.globalData.opendid = res.opendid;
+
+        that.globalData.openid = res.result.openid;
         //查看用户是否在数据库注册
         that.countUser().then(res => {
           //更新用户信息
@@ -253,6 +271,25 @@ App({
   showLoading(title){
     wx.showLoading({
       title: title,
+    })
+  },
+  navigateTo:function(url){
+    this.showLoadingMask('请稍后');
+    var that =this;
+    wx.navigateTo({
+      url: url,
+      success:function(){
+        wx.hideLoading()
+      },
+      fail:function(error){
+        that.showErrNoCancel('跳转失败',error.errMsg);
+      }
+    })
+  },
+  showToast:function(txt){
+    wx.showToast({
+      title: txt,
+      icon:'none'
     })
   }
 })
