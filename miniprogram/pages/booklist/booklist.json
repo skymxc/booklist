@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText":"sky书单"
+  "navigationBarTitleText":"sky书单",
+  "enablePullDownRefresh": true
 }

@@ -72,7 +72,17 @@ Page({
         }
       }).catch(error => {
 
-        app.showErrNoCancel("授权异常！", error.errMsg);
+        wx.reLaunch({
+          url: '../authorize/authorize',
+          success: function () {
+            wx.hideLoading();
+          },
+          fail: function (error) {
+
+            app.showErrNoCancel("跳转授权页失败", error.errMsg);
+
+          }
+        });
 
       });
     }
@@ -92,7 +102,9 @@ Page({
     // this.loadBookList(false);
   },
   loadBookList: function(refresh) {
-    app.showLoading("加载中");
+    
+      app.showLoading("加载中");
+    
     var that = this;
     db.collection('book_list').where({
         _openid: app.globalData.openid

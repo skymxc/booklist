@@ -1,2 +1,29 @@
-<!--miniprogram/pages/editBooklist/editBooklist.wxml-->
-<text>编辑</text>
+<view class='container'>
+  <form class='form' bindsubmit='formSubmit'>
+    <view class='container-form'>
+    <input name='name' type='text' class='input-name' placeholder='输入书单名字' value="{{bl.name}}" ></input>
+
+    <textarea name='description' class='textarea-description' maxlength='140' placeholder='这里输入书单描述' auto-height='true' value='{{bl.description}}'></textarea>
+
+    <input name='tag' type='text' class='input-tag' placeholder='输入标签 以空格隔开' value='{{tagValue}}' bindinput='inputTagEvent' value='{{tagValue}}'></input>
+
+
+    <text wx:if='{{tagList.length>0}}' class='text-tag-label'>常用标签</text>
+
+    <view wx:if='{{tagList.length>0}}' class='container-tag'>
+      
+      <block wx:for='{{tagList}}' wx:for-item='tag' wx:key="_id">
+        <text class='text-tag' data-tag='{{tag}}' bindtap='tapTag' data-index='{{index}}'>{{tag.name}}</text>
+      </block>
+    </view>
+
+<!-- <checkbox-group name='private' class='checkbox-private'>
+    <checkbox value='private'>私密</checkbox>
+</checkbox-group> -->
+    <button class='button-create' form-type='submit'>保存</button>
+     
+</view>
+  </form>
+
+
+</view>
