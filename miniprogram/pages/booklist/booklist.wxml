@@ -20,7 +20,7 @@
   </view>
  
 
-<button class='btn-float btn-kefu ' open-type='contact'>
+<button class='btn-float btn-kefu ' open-type='contact' hidden='true'>
 <image src='../../images/kefu.png' class=' image-kefu'></image>
 </button>
  

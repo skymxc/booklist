@@ -1,6 +1,9 @@
 # sky书单
 记录与分享自己喜欢的书单。
 
+# todo
+- 云函数接受不到客服消息
+
 ## 我的书单
 ![我的书单](picture/我的书单-list.png)
 ![我的书单-empty](picture/书单详情-empty.png)
