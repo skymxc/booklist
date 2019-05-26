@@ -4,10 +4,15 @@
 # todo
 - 云函数接受不到客服消息
 
+扫码体验
+
+![书单](picture/二维码.jpg)
+
 ## 我的书单
 ![我的书单](picture/我的书单-list.png)
 ![我的书单-empty](picture/书单详情-empty.png)
 ![我的书单](picture/我的书单-modal.png)
+
 ## 创建书单
 ![创建书单](picture/创建书单.png)
 ## 书单
