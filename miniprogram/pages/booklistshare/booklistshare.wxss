@@ -47,12 +47,10 @@
 
 .container-description {
   color: #868686;
-  padding: 10rpx;
-  margin-top: 10rpx;
-  margin-bottom: 10rpx;
   font-size: 30rpx;
   width: 100%;
- 
+  display: block;
+  padding-left: 20px;
 }
 
 /* 列表 */

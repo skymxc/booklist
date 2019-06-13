@@ -33,13 +33,14 @@ Page({
   },
   load: function() {
     this.loadBooklist();
-    this.loadAuthor();
+    // this.loadAuthor();
     this.loadbooks();
     wx.stopPullDownRefresh();
   },
   loadBooklist: function() {
     app.showLoading('加载中');
     var that = this;
+    console.log('_id',this.data._id)
     db.collection('book_list').doc(this.data._id).get()
       .then(res => {
         wx.hideLoading();
@@ -47,6 +48,7 @@ Page({
           that.setData({
             bl: res.data
           })
+          that.loadAuthor(res.data._openid);
         } else {
           wx.showModal({
             title: '提示',
@@ -60,6 +62,7 @@ Page({
           })
         }
       }).catch(error => {
+        
         wx.hideLoading();
         wx.showModal({
           title: '提示',
@@ -81,13 +84,13 @@ Page({
   /**
    * 加载作者
    */
-  loadAuthor: function() {
+  loadAuthor: function(authorid) {
     wx.showLoading({
       title: '加载中',
     });
     var that = this;
     db.collection('user').where({
-        _openid: this.data.author._openid
+      _openid: authorid
       }).get()
       .then(res => {
         wx.hideLoading();
