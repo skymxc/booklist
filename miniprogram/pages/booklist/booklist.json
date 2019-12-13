@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText":"sky书单",
-  "enablePullDownRefresh": true
+  "navigationBarTitleText": "我的书单",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "i-message": "../../dist/message/index"
+  }
 }

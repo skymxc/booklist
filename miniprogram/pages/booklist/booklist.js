@@ -1,4 +1,7 @@
 // miniprogram/pages/booklist/booklist.js
+const { $Message } = require('../../dist/base/index');
+const Users = require('../../js/User.js');
+
 const app = getApp();
 const db = wx.cloud.database();
 Page({
@@ -29,7 +32,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    var openid = Users.getOpenid();
+     openid.then(res=> console.log('openid->',res))
+     .catch(error=>console.error(error));
     /**
      * 检查权限 
      */
