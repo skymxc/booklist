@@ -1,32 +1,48 @@
 <view class='container'>
- <i-modal title="{{modalTitle}}" visible="{{ modalVisible }}" actions="{{ modalActions }}" bind:click="handleModalClick">
-    <view>{{modalContent}}</view>
-</i-modal>
-  <view wx:if='{{enableEmpty}}' class='container-empty '>
+	<i-modal title="{{modalTitle}}" visible="{{ modalVisible }}" actions="{{ modalActions }}" bind:click="handleModalClick">
+		<view>{{modalContent}}</view>
+	</i-modal>
+	<!-- 没有时间时显示 -->
+	<view wx:if='{{enableEmpty}}' class='container-empty '>
 
-    <view class='container-empty-list'>
-      <image src='../../images/shuji.png' class='image-empty'></image>
-      <text class='text-empty'>还没有自己的书单，去创建一个吧</text>
-      <button class='button-create-booklist' type='primary' bindtap='tapCreateBooklist'>创建书单</button>
-    </view>
-  </view>
-  <view wx:if='{{bookList.length>0}}' class='container-booklist'>
-    <block wx:for='{{bookList}}' wx:for-item='book' wx:key='_id'>
-      <view class='container-book' data-book='{{book}}' bindtap='tapBook' data-index='{{index}}' bindlongpress='longTapBook'>
-        <text class='text-book-name'>{{book.name}}</text>
-        <text class='text-book-description'>{{book.description}}</text>
-      </view>
-    </block>
-  </view>
- 
+		<view class='container-empty-list'>
+			<image src='../../images/shuji.png' class='image-empty'></image>
+			<text class='text-empty'>还没有自己的书单，去创建一个吧</text>
+			<button class='button-create-booklist' type='primary' bindtap='tapCreateBooklist'>创建书单</button>
+		</view>
 
-<button class='btn-float btn-kefu ' open-type='contact' hidden='true'>
-<image src='../../images/kefu.png' class=' image-kefu'></image>
-</button>
- 
- 
-  <image wx:if='{{bookList.length>0}}' src='../../images/add.png' class='image-icon image-add' bindtap='tapCreateBooklist'></image>
- 
+	</view>
+
+<!-- 卡片列表 -->
+	<view wx:if='{{bookList.length>0}}' class='container-booklist'>
+		<block wx:for='{{bookList}}' wx:for-item='book' wx:key='_id'>
+			<view class='container-book' data-book='{{book}}' bindtap='tapBook' data-index='{{index}}' bindlongpress='longTapBook'>
+				<text class='text-book-name'>{{book.name}} </text>
+				<text class='text-book-description'>{{book.description}} </text>
+			</view>
+		</block>
+	</view>
+
+
+	<!-- 悬浮在右下侧的 -->
+	<view id="container-float">
+		<button class='btn-float ' open-type='share'>
+			<image src='../../images/share.png' class='image-icon'></image>
+			<view class="float-item-text">分享</view>
+		</button>
+		<button class='btn-float ' open-type='contact'>
+			<image src='../../images/feedback.png' class='image-icon'></image>
+			<view class="float-item-text">建议</view>
+		</button>
+
+		<button class='btn-float ' bindtap='tapCreateBooklist' >
+			<image src='../../images/icon_xxxhdpi.png' class='image-icon icon'></image>
+			<view class="float-item-text text-create">创建</view>
+		</button>
+
+	</view>
+
+
 
 </view>
 
