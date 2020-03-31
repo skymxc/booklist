@@ -3,7 +3,7 @@ const {
   $Message
 } = require('../../dist/base/index');
 const Users = require('../../js/User.js');
-
+const Books = require('../../js/Book.js');
 const app = getApp();
 const db = wx.cloud.database();
 Page({
@@ -44,7 +44,7 @@ Page({
         if (res) {
           app.globalData.openid = res
           //从本地缓存中去数据
-            this.loadBookListFromStorage()
+          this.loadBookListFromStorage()
         } else {
           wx.showModal({
             cancelColor: 'cancelColor',
@@ -83,19 +83,19 @@ Page({
       console.log("storage data-", res)
       if (res) {
         that.data.bookList = res;
-          wx.hideLoading()
+        wx.hideLoading()
         that.setData({
           bookList: that.data.bookList,
           enableEmpty: that.data.bookList.length == 0
         });
         //从后台刷新数据
         this.loadBookList()
-      }else{
+      } else {
         wx.startPullDownRefresh()
       }
     }).catch(error => {
       console.error("从缓存里取书单错误，", error)
-        wx.startPullDownRefresh()
+      wx.startPullDownRefresh()
     })
   },
   /**
@@ -103,12 +103,12 @@ Page({
    */
   loadBookList: function () {
     var that = this;
-    
+
     db.collection('book_list').where({
         _openid: app.globalData.openid
       }).get()
       .then(res => {
-        console.log("从后台获取到的书单",res)
+        console.log("从后台获取到的书单", res)
         wx.stopPullDownRefresh();
 
         that.data.bookList = res.data;
@@ -122,7 +122,7 @@ Page({
 
       }).catch(error => {
         wx.stopPullDownRefresh();
-        console.error("书单加载错误->",error)
+        console.error("书单加载错误->", error)
         wx.showModal({
           showCancel: false,
           content: error,
@@ -140,16 +140,16 @@ Page({
   /**
    * 保存当前显示的书单到本地缓存
    */
-  saveBookListToStorage:function(){
-   var data = this.data.bookList;
+  saveBookListToStorage: function () {
+    var data = this.data.bookList;
     wx.setStorage({
       data: data,
       key: 'bookList',
-      success:function(){
-        console.log("缓存到本地成功-",data)
+      success: function () {
+        console.log("缓存到本地成功-", data)
       },
-      fail:function(err){
-        console.error("缓存到本地失败",err)
+      fail: function (err) {
+        console.error("缓存到本地失败", err)
       }
     })
   },
@@ -170,12 +170,12 @@ Page({
         wx.hideLoading();
       },
       fail: function (error) {
-        console.log("跳转到创建异常，",error)
+        console.log("跳转到创建异常，", error)
         wx.showModal({
-          showCancel:false,
-          content:'跳转异常'
+          showCancel: false,
+          content: '跳转异常'
         })
-        
+
       }
     })
   },
@@ -208,16 +208,23 @@ Page({
       modalBookIndex: index
     })
   },
-  handleModalClick: function ({detail
+  /**
+   * 根据点击的按钮顺序处理相应的点击事件
+   * 处理的事件有，0，删除，1编辑，
+   * @param {点击事件} param0 
+   */
+  handleModalClick: function ({
+    detail
   }) {
     const index = detail.index;
     var that = this;
     if (index === 0) {
-
-      app.showLoadingMask('删除中');
+      wx.showLoading({
+        title: '删除中',
+        mask:true
+      })
       var that = this;
-      db.collection('book_list')
-        .doc(this.data.modalBook._id).remove()
+      Books.delBookListById(this.data.modalBook._id)
         .then(res => this.handleDelBooklist(res))
         .then(res => {
           console.log('删除所属书籍-', res)
@@ -230,21 +237,40 @@ Page({
             that.setData({
               bookList: that.data.bookList
             })
+            this.saveBookListToStorage()
           }
         })
         .catch(error => {
-          app.showErrNoCancel('删除失败', error.errMsg);
+          console.error('删除书单失败', error)
+          wx.hideLoading()
+          wx.showModal({
+            content: error.errMsg,
+            title: '删除失败',
+            showCancel: false
+          })
         })
     } else if (index === 1) {
-      app.showLoadingMask('请稍后');
+      wx.showLoading({
+        title: '加载中',
+        mask:true
+      })
       wx.setStorage({
         key: 'editbooklist',
         data: that.data.modalBook,
         success: function () {
+          wx.hideLoading()
           app.navigateTo('../editBooklist/editBooklist')
         },
         fail: function (err) {
-          app.showErrNoCancel('编辑失败', err.errMsg);
+          console.error('跳转到编辑失败', err)
+          wx.hideLoading()
+          wx.showModal({
+            cancelColor: 'cancelColor',
+            showCancel: false,
+            content: err.errMsg,
+            title: '跳转失败'
+          })
+
         }
       })
     }
@@ -253,20 +279,25 @@ Page({
       modalVisible: false
     });
   },
+  /**
+   * 根据删除书单的结果删除书籍，
+   * 如果书单删除成功就删除书籍。否则就给出提示
+   * @param {删除书单的结果} res 
+   */
   handleDelBooklist(res) {
+    console.log('删除书单，',res)
     if (res.stats.removed == 1) {
       //删除书单里的书籍
-      var that = this;
-      return wx.cloud.callFunction({
-        name: 'delBookBylistId',
-        data: {
-          listid: that.data.modalBook._id
-        }
-      });
+      return Books.delBookBylistId(this.data.modalBook._id)
 
     } else {
+      wx.hideLoading()
+      wx.showModal({
+        content: '网路可能不稳定或者是重复删除',
+        title: '删除失败',
+        showCancel: false
+      })
 
-      app.showToast('删除失败')
     }
   }
 })
