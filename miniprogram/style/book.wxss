@@ -44,6 +44,7 @@
   padding-left: 10rpx;
   line-height: 30rpx;
   font-size: 30rpx;
+  background-color: white;
 
 }
 textarea{
@@ -55,3 +56,26 @@ textarea{
    margin-top: 20rpx;
    min-height: 100rpx;
 }
+
+.input{
+  border: 1rpx #F2F2F2 solid;
+  border-radius: 10rpx;
+  width: 95%;
+  padding: 10rpx;
+  background-color: white;
+  min-height: 60rpx;
+  margin-top: 20rpx;
+}
+
+
+.textarea-description{
+  border: 1rpx #F2F2F2 solid;
+  border-radius: 10rpx;
+  width: 95%;
+  padding: 10rpx;
+   font-size: 30rpx;
+   margin-top: 20rpx;
+   min-height: 150rpx;
+   background-color: white;
+}
+

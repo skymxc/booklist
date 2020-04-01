@@ -21,6 +21,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log("_id->",options)
     if(options._id){
       this.setData({
         _id:options._id
@@ -59,7 +60,9 @@ Page({
   loadBooklist: function() {
     wx.showLoading({
       title: '加载中',
+      mask:true
     });
+    
     var that = this;
     db.collection('book_list').doc(this.data._id).get()
       .then(res => {

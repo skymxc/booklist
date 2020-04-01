@@ -1,7 +1,6 @@
 /* miniprogram/pages/createBookList/createBooklist.wxss */
 
 .container{
-  background-color: white;
 }
 .form{
   width: 100%;
@@ -15,39 +14,41 @@
   align-items: center;
 }
 
-.input-name{
+.input{
   border: 1rpx #F2F2F2 solid;
-  border-radius: 5rpx;
+  border-radius: 10rpx;
   width: 95%;
-  padding-left: 10rpx;
+  padding: 10rpx;
+  background-color: white;
+  min-height: 60rpx;
+}
+
+.input-name{
   line-height: 40rpx;
   font-size: 30rpx;
-  min-height: 60rpx;
-
+}
+.input-author{
+  margin-top: 20rpx;
 }
 
 .textarea-description{
   border: 1rpx #F2F2F2 solid;
-  border-radius: 5rpx;
+  border-radius: 10rpx;
   width: 95%;
-  padding: 5rpx;
+  padding: 10rpx;
    font-size: 30rpx;
    margin-top: 20rpx;
-   min-height: 100rpx;
+   min-height: 150rpx;
+   background-color: white;
 }
 
 .input-tag{
-  border: 1rpx #F2F2F2 solid;
-  border-radius: 5rpx;
-  width: 95%;
-  padding-left: 10rpx;
   line-height: 30rpx;
   font-size: 30rpx;
   margin-top: 20rpx;
 }
 
 .text-tag-label{
-    color: #bcbcbc;
   font-size: 30rpx;
   margin-top: 10rpx;
   margin-bottom: 10rpx;
@@ -71,6 +72,7 @@
   font-size: 26rpx;
   padding: 5rpx 30rpx 5rpx 30rpx;
   margin: 5rpx 10rpx 5rpx 10rpx;
+  background-color: white;
 }
 .checkbox-private{
   width: 95%;

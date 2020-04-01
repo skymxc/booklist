@@ -3,11 +3,14 @@
 <view class='container'>
   <form class='form' bindsubmit='formSubmit'>
   <view class='container-form'>
-    <input class='input-text input-book-name' name='name' placeholder='书籍名称' value='{{book.name}}'></input>
+      <input class='input input-name' name='name' maxlength="100" placeholder='书籍名称'value='{{book.name}}' ></input>
+        <input class='input input-author' name='author' maxlength="50" placeholder='作者' value="{{book.author}}" ></input>
+
 
        <textarea name='description' class='textarea-description textarea-book-desc' maxlength='140' placeholder='书籍描述' auto-height='true' value='{{book.description}}'></textarea>
      
-       <button class='button-save' form-type='submit'>保存</button>
+       <button type="primary" form-type='submit'>保存</button>
+        <button  type="warn" bindtap="onTapDelete">删除</button>
   </view>
   </form>
 </view>

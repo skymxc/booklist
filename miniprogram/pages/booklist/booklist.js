@@ -187,6 +187,10 @@ Page({
   tapBook: function (event) {
     var book = event.currentTarget.dataset.book;
     app.showLoadingMask('请稍后');
+    wx.showLoading({
+      title: '请稍后',
+      mask:true
+    })
     wx.navigateTo({
       url: '../listDetail/listDetail?_id=' + book._id,
       success: function () {

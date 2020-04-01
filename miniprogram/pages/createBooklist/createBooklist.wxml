@@ -1,11 +1,15 @@
 <view class='container'>
+	<i-modal title="{{modalTitle}}" visible="{{ modalVisible }}" actions="{{ modalActions }}" bind:click="handleModalClick">
+		<view>{{modalContent}}</view>
+	</i-modal>
   <form class='form' bindsubmit='formSubmit'>
     <view class='container-form'>
-    <input name='name' type='text' class='input-name' placeholder='输入书单名字' ></input>
+    <input name='name' type='text' class='input input-name' maxlength="50" placeholder='输入书单名字' ></input>
 
-    <textarea name='description' class='textarea-description' maxlength='140' placeholder='这里输入书单描述' auto-height='true'></textarea>
 
-    <input name='tag' type='text' class='input-tag' placeholder='输入标签 以空格隔开' value='{{tagValue}}' bindinput='inputTagEvent'></input>
+    <textarea name='description' class='textarea-description' maxlength='140' placeholder='输入书单描述' auto-height='true'></textarea>
+
+    <input name='tag' type='text' class='input input-tag' placeholder='输入标签 以空格隔开' maxlength="100" value='{{tagValue}}' bindinput='inputTagEvent'></input>
 
 
     <text wx:if='{{tagList.length>0}}' class='text-tag-label'>常用标签</text>
@@ -20,7 +24,7 @@
 <!-- <checkbox-group name='private' class='checkbox-private'>
     <checkbox value='private'>私密</checkbox>
 </checkbox-group> -->
-    <button class='button-create' form-type='submit'>创建</button>
+    <button class='button-create' type="primary" loading="{{saving}}" form-type='submit'>创建</button>
 </view>
   </form>
 

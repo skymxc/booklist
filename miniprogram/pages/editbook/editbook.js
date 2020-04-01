@@ -1,6 +1,9 @@
 // miniprogram/pages/editbook/editbook.js
 const app = getApp();
-const db = wx.cloud.database();
+const Books = require('../../js/Book.js');
+/**
+ * 这里隐藏一个 bug，没有检测书名重复。
+ */
 Page({
 
   /**
@@ -14,6 +17,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    options.name = '1'
+    options.description = '1'
+    options._id = '6aebd2215e84a8970035c66d5625a1d2'
+    options.booklist_id= 'dc65fe3e5e8496cd002b193565f08692'
       if(options.name){
           var book={
             name:options.name,
@@ -37,28 +44,141 @@ Page({
         })
       }
   },
+  /**
+   * 去提交表单
+   * @param {表单}} event 
+   */
   formSubmit:function(event){
     var value = event.detail.value;
     var name = value.name;
+    var author =value.author
     var description = value.description;
     if (name.length == 0) {
-      app.showErrNoCancel('添加提示', '书籍名称不能为空！');
+      wx.showToast({
+        title: '书籍名称',
+        icon:'none'
+      })
       return;
     }
-
-    app.showLoadingMask('请稍后');
-    db.collection('book').doc(this.data.book._id).update({
-      data:{
-        name:name,
-        description:description
+    console.log(this.data.book,name,author,description)
+    if(this.data.book.name==name
+      &&this.data.book.author==author
+      &&this.data.book.description == description){
+        wx.showToast({
+          title: '没有变化哦',
+          icon:'none'
+        })
+        return
       }
-    }).then(res => {
-      wx.hideLoading();
-      wx.showToast({
-        title: '保存成功',
+    this.data.book.name = name
+    this.data.book.author = author
+    this.data.book.description = description
+    this.toUpdateBook()
+  },
+  toUpdateBook:function(){
+    wx.showLoading({
+      title: '保存中',
+      mask:true
+    })
+    var book={
+        name:this.data.book.name,
+        author:this.data.book.author,
+        description:this.data.book.description
+    }
+    Books.updateBook(this.data.book._id,book)
+    .then(res=>{
+      if(res){
+        wx.hideLoading({
+          complete: (res) => {},
+        })
+        console.log('保存书籍,',res)
+        if(res.stats.updated==1){
+            wx.showToast({
+              title: '成功',
+              icon:'success'
+            })
+        }else{
+          wx.showToast({
+            title: '没有成功',
+            icon:"none"
+          })
+        }
+      }
+    })
+    .catch(error=>{
+      console.error('更改书籍-',error)
+      wx.hideLoading({
+        complete: (res) => {},
       })
-    }).catch(error => {
-      app.showErrNoCancel('保存失败！', error.errMsg);
-    });
-  }
+      wx.showModal({
+        title:'保存失败',
+        content:error.errMsg,
+        confirmText:'重试',
+        success:res=>{
+          if(res.confirm){
+            this.toUpdateBook()
+          }else if(ers.cancel){
+            wx.showToast({
+              title: '首页右下角「建议」可反馈哦',
+              icon:'none'
+            })
+          }
+        }
+      })
+    })
+  },
+  onTapDelete:function(event){
+    wx.showModal({
+      title:'删除确认',
+      content:'确认删除 '+this.data.book.name+' ?',
+      confirmColor:'red',
+      success:res=>{
+        if(res.confirm){
+            this.toDeleteBook()
+        }
+      }
+    })
+  } ,
+    toDeleteBook:function(){
+      wx.showLoading({
+        title: '删除中',
+        mask:true
+      })
+      Books.deleteBook(this.data.book)
+      .then(res=>{
+        wx.hideLoading({
+          complete: (res) => {},
+        })
+        console.log('删除书籍-',res)
+            wx.showToast({
+              title: '成功',
+              icon:'success'
+            })
+            //要做刷新标志
+            wx.navigateBack({
+              complete: (res) => {},
+            })
+          
+      }).catch(error=>{
+        wx.hideLoading({
+          complete: (res) => {},
+        })
+          console.log('删除书籍-',error)
+          wx.showModal({
+           title:'删除失败',
+           content:error.errMsg,
+           confirmText:'重试',
+           success:res=>{
+             if(res.confirm){
+               this.toDeleteBook()
+             }else if(res.cancel){
+               wx.showToast({
+                 title: '首页右下角「建议」可反馈哦',
+                 icon:'none'
+               })
+             }
+           }
+          })
+      })
+    }
 })
