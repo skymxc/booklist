@@ -116,6 +116,25 @@ function deleteBook(book){
   return db.collection('book').doc(book._id).remove()
 }
 
+/**
+ * 从后台获取 书单 ID
+ * @param {书单ID} id 
+ */
+function getBookList(id){
+  return db.collection('book_list').doc(id).get()
+}
+/**
+ * 获取书单的书籍
+ * @param {书单ID} booklist_id 
+ */
+function loadBooks(booklist_id){
+  var where = {
+    booklist_id: booklist_id,
+      _openid: getApp().globalData.openid
+  }
+  return db.collection('book').where(where).get()
+}
+
 
 module.exports = {
   delBookBylistId : delBookBylistId,
@@ -127,5 +146,7 @@ module.exports = {
   countBook:countBook,
   addBook:addBook,
   updateBook:updateBook,
-  deleteBook:deleteBook
+  deleteBook:deleteBook,
+  getBookList:getBookList,
+  loadBooks:loadBooks
 }

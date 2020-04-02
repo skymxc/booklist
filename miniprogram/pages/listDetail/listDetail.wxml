@@ -1,31 +1,42 @@
 <view class='container'>
-  <view class='container-books' wx:if='{{books.length>0}}'>
-    <block wx:for='{{books}}' wx:for-item='book' wx:key='_id'>
-      <view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='tapBook'>
-        <text class='text-book-name'>{{book.name}}</text>
-        <text class='text-book-description'>{{book.description}}</text>
-      </view>
-    </block>
-  </view>
-  <view class='container-controller' wx:if='{{books.length>0}}'>
-    <button class='button-share button-controller' open-type='share'>分享</button>
-    <!-- <button class='button-edit button-controller' bindtap='tapEdit'>编辑</button> -->
-    <button class='button-add button-controller' bindtap='tapAddBook'>添加</button>
-  </view>
 
-  <view class='container-empty' wx:if='{{empty}}'>
-    <image src='../../images/shuji.png' class='image-empty'></image>
-    <text class='text-empty'>书单中尚没有书籍</text>
-    <button class='button-add-book' type='primary' bindtap='tapAddBook'>添加书籍</button>
-  </view>
+	<view class="container-booklist">
+		<view class="booklist-name">{{booklist.name}}</view>
+		<view class="booklist-description">{{booklist.description}}</view>
+	</view>
+	<view class='container-books' wx:if='{{books.length>0}}'>
+		<block wx:for='{{books}}' wx:for-item='book' wx:key='_id'>
+			<view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='onTapBook'>
+				<text class='text-book-name'>{{book.name}}</text>
+				<text class='text-book-author'>{{book.author}}</text>
+			</view>
+		</block>
+	</view>
 
-  <view class='container-select {{selectVisibleClass}}'>
-    <view class='select-cover'></view>
 
-    <view class='container-select-list'>
-      <view class='select-edit select' bindtap='tapEditBook'>编辑</view>
-      <view class='select-delete select' bindtap='tapDelBook'>删除</view>
-      <view class='select-cancel select' bindtap='tapCancelSelect'>取消</view>
-    </view>
-  </view>
+	<view class='container-empty' wx:if='{{empty}}'>
+		<image src='../../images/shuji.png' class='image-empty'></image>
+		<text class='text-empty'>书单中尚没有书籍</text>
+		<button class='button-add-book' type='primary' bindtap='tapAddBook'>添加书籍</button>
+	</view>
+
+  	<!-- 悬浮在右下侧的 -->
+	<view id="container-float">
+		<button class='btn-float ' open-type='share'>
+			<image src='../../images/share.png' class='image-icon'></image>
+			<view class="float-item-text">分享</view>
+		</button>
+		<button class='btn-float ' bindtap="tapAddBook" >
+			<image src='../../images/shuji.png' class='image-icon'></image>
+			<view class="float-item-text">添加</view>
+		</button>
+
+		<button class='btn-float ' bindtap='tapCreateBooklist' bindtap="onTapEditBookList" >
+			<image src='../../images/icon_xxxhdpi.png' class='image-icon icon'></image>
+			<view class="float-item-text text-create">编辑</view>
+		</button>
+
+	</view>
+
+
 </view>

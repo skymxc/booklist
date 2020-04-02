@@ -1,16 +1,31 @@
 /* miniprogram/pages/listDetail/listDetail.wxss */
 
-.container{
+.container-booklist{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
 
-  background-color: white;
 }
+.booklist-name{
+  font-size: 45rpx;
+  color: black;
+  margin-left: 20rpx;
+  font-weight: bold;
+}
+
+.booklist-description{
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  color: #333333;
+}
+
 .container-empty {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
  padding-top: 100rpx;
 }
 
@@ -45,72 +60,90 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 100rpx;
+  margin-top: 20rpx
 }
-
-@import "../../style/book.wxss";
-/* 底部按钮 */
-.container-controller{
-  height: 100rpx;
-  width: 100%;
-  position: fixed;
-  bottom: 0rpx;
-  display: flex;
-  flex-direction: row;
-}
-
-.button-controller{
-  flex: 1;
-  height: 100%;
-   border-radius: 0px;
-   color: white;
-}
-.button-controller::after{
-  border: none;
-}
-
-.button-share{
-  background-color: green;
-  
-}
-
-.button-edit{
-  background-color: firebrick;
-}
-.button-add{
-  background-color: burlywood;
-}
-/* 选择 */
-.container-select{
-  position: fixed;
-  bottom: 0rpx;
-  height: 100%;
-  width: 100%;
-}
-
-.select-cover{
-  height: 100%;
-  width: 100%;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.container-select-list{
-  position: absolute;
-  bottom: 0rpx;
-  width: 100%;
-  height: 300rpx;
+.container-book{
   background-color: white;
+  width: 90%;
+  margin: 10rpx 20rpx 10rpx 20rpx;
+  max-height: 150rpx;
+  border-radius: 20rpx;
   display: flex;
   flex-direction: column;
+  padding: 20rpx;
+}
+
+.text-book-name  {
+  color: black;
+  font-weight: bold;
+  font-size: 35rpx;
+  display: block;
+  line-height: 35rpx;
+  margin-bottom: 10rpx;
+   text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-book-author {
+  color: #333333;
+  width: 100%;
+  font-size: 29rpx;
+  text-align: right;
+  margin-top: 10rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   
 }
-.select{
-  border-bottom: 1rpx #bcbcbc solid;
-  width: 100%;
-  flex: 1;
+
+/* 悬浮 */
+#container-float{
+  box-sizing: border-box;
+  width: 200rpx;
+  min-height: 100rpx;
+  overflow: auto;
+  position: fixed;
+  right: 10rpx;
+  bottom: 150rpx;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  justify-content: center;
 }
+
+.btn-float{
+  background-color: white;
+   padding: 0px;
+   width: 180rpx;
+   height: 70rpx;
+   font-size: 25rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+  padding-left: 30rpx;
+
+  margin-top: 20rpx;
+
+  
+}
+.btn-float::after{
+   /* border: none !important; */
+   border: 1rpx solide black;
+  
+}
+
+.image-icon{
+  width: 40rpx;
+  height: 40rpx;
+}
+.icon{
+  width: 50rpx;
+  height: 50rpx;
+}
+.float-item-text{
+  margin-left: 30rpx;
+}
+.text-create{
+  margin-left: 15rpx;
+}
+
+

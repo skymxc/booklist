@@ -1,6 +1,8 @@
 // miniprogram/pages/listDetail/listDetail.js
 const app = getApp();
 const db = wx.cloud.database();
+const Books = require('../../js/Book.js');
+
 Page({
 
   /**
@@ -54,6 +56,9 @@ Page({
       path:'/pages/booklistshare/booklistshare?_id='+this.data.booklist._id
     }
   },
+  onPullDownRefresh:function(){
+    this.loadbooks()
+  },
   /**
    * 加载 书单
    */
@@ -62,19 +67,18 @@ Page({
       title: '加载中',
       mask:true
     });
-    
-    var that = this;
-    db.collection('book_list').doc(this.data._id).get()
+    var that =this
+    Books.getBookList(this.data._id)
       .then(res => {
         wx.hideLoading();
         if (res.data) {
-          that.setData({
+          this.setData({
             booklist: res.data
           });
           wx.setNavigationBarTitle({
-            title: that.data.booklist.name
+            title: this.data.booklist.name
           });
-          that.loadbooks();
+          wx.startPullDownRefresh()
         } else {
           wx.showModal({
             title: '提示',
@@ -90,17 +94,20 @@ Page({
           })
         }
       }).catch(error => {
-        console.error(error);
+        console.error('书单加载',error);
         wx.hideLoading();
         wx.showModal({
           title: '错误',
           content: error.errMsg,
-          showCancel: false,
+          confirmText:'重试',
+          cancelText:'取消',
           success: function(res) {
             if (res.confirm) {
+              that.loadBooklist()
+            }else if(res.cancel){
               wx.navigateBack({
-
-              });
+                complete: (res) => {},
+              })
             }
           }
         })
@@ -110,36 +117,36 @@ Page({
    * 加载书单的书
    */
   loadbooks: function() {
-    wx.showLoading({
-      title: '加载中',
-    });
-    var that = this;
-    db.collection('book').where({
-      booklist_id: this.data._id,
-      _openid: this.data.booklist._openid
-    }).get().then(res => {
-      wx.hideLoading();
+    Books.loadBooks(this.data._id)
+    .then(res => {
+      console.log('书籍加载',res)
+     wx.stopPullDownRefresh()
       if (res.data.length > 0) {
-        that.setData({
-          books: res.data
-        });
-        that.setData({
-          empty: false
+        this.setData({
+          books: res.data,
+          empty:false
         });
       } else {
-        that.setData({
+        this.setData({
           empty: true
         });
+        wx.showToast({
+          title: '还没有添加书籍',
+          icon:'none'
+        })
       }
     }).catch(error => {
-      wx.hideLoading();
+      console.error('加载书籍错误',error)
+      wx.stopPullDownRefresh()
       wx.showModal({
-        title: '错误',
+        title: '书籍加载错误',
         content: error.errMsg,
-        showCancel: false,
+        confirmText:'重试',
         success: function(res) {
           if (res.confirm) {
-            that.setData({
+            wx.startPullDownRefresh()
+          }else if(res.cancel){
+            this.setData({
               empty: true
             });
           }
@@ -170,20 +177,36 @@ Page({
   /**
    * 书籍被点击
    */
-  tapBook: function(event) {
+  onTapBook: function(event) {
     var book = event.currentTarget.dataset.book;
-    var index = event.currentTarget.dataset.index;
-    this.setData({
-      tapBook: book,
-      tapIndex: index,
-      selectVisibleClass: ''
-    });
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
+    wx.navigateTo({
+      url: '../editbook/editbook?_id='+book._id+'&name='+book.name+'&description='+book.description+'&booklist_id='+book.booklist_id+'&author='+book.author,
+      success:function(){
+        wx.hideLoading();
+      },
+      fail:function(error){
+        console.error('跳转错误',error.errMsg);
+        wx.hideLoading({
+          complete: (res) => {},
+        })
+        wx.showToast({
+          title: error.errMsg,
+          icon:'none'
+        })
+      }
+    })
   },
   /**
    * 编辑书单
    */
-  tapEdit: function() {
-   
+  onTapEditBookList: function() {
+    wx.showToast({
+      title: '编辑书单',
+    })
   },
   /**
    * 取消选择

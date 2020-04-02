@@ -1,0 +1,26 @@
+/* miniprogram/pages/bookDetail.wxss */
+
+.container{
+  background-color: white;
+  height: 100%;
+  padding: 20rpx;
+  align-items:center;
+
+}
+
+.book-name{
+  font-size: 50rpx;
+  /* font-style: italic; */
+  font-weight: bold;
+  text-align: center;
+}
+.book-author{
+  color: rgb(85, 82, 82);
+  margin-right: 20rpx;
+  align-self: flex-end;
+}
+
+.book-description{
+  color: grey;
+  align-self: flex-start;
+}

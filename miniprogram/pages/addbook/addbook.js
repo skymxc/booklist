@@ -1,6 +1,6 @@
 // miniprogram/pages/addbook/addbook.js
 const app = getApp();
-const db = wx.cloud.database();
+
 const Books = require('../../js/Book.js');
 
 
@@ -17,7 +17,7 @@ Page({
     // app.globalData.openid = 'okOSP4ucoDqhYq98HB3sfRDUW_0s'
     console.log('onLoad',event)
     this.setData({
-      booklist_id:event._id
+      booklist_id:event.booklist_id
     })
   },
   formSubmit:function(event){

@@ -17,10 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    options.name = '1'
-    options.description = '1'
-    options._id = '6aebd2215e84a8970035c66d5625a1d2'
-    options.booklist_id= 'dc65fe3e5e8496cd002b193565f08692'
+  
       if(options.name){
           var book={
             name:options.name,
@@ -60,16 +57,7 @@ Page({
       })
       return;
     }
-    console.log(this.data.book,name,author,description)
-    if(this.data.book.name==name
-      &&this.data.book.author==author
-      &&this.data.book.description == description){
-        wx.showToast({
-          title: '没有变化哦',
-          icon:'none'
-        })
-        return
-      }
+   
     this.data.book.name = name
     this.data.book.author = author
     this.data.book.description = description
