@@ -37,6 +37,7 @@ Page({
 
     wx.showLoading({
       title: '加载中',
+      mask:true
     })
     var openid = Users.getOpenid();
     openid.then(res => {
@@ -62,6 +63,20 @@ Page({
           }
         })
       });
+  },
+  onShow:function(options){
+    console.log('onShow')
+    if(app.globalData.openid){
+     if(app.data.refresh){
+       wx.startPullDownRefresh({
+         complete: (res) => {
+           app.data.refresh =false
+         },
+       })
+     }
+    }
+    
+  
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -103,7 +118,7 @@ Page({
    */
   loadBookList: function () {
     var that = this;
-
+    
     db.collection('book_list').where({
         _openid: app.globalData.openid
       }).get()

@@ -4,6 +4,10 @@
 // 这个函数的 Object 参数有几个系统规定的生命周期属性：onLaunch , onShow,onHide,onError,onPageNotFound; 这几个属性都是 函数类型的 ；下面是实例代码
 // 我们还可以自己添加 属性； 
 App({
+  data:{
+    markDeleteBooklist:'deleteBookList',
+    markRefresh:false
+  },
   onLaunch: function(options) {
     
     // 初始化云能力 traceUser:true 记录用户

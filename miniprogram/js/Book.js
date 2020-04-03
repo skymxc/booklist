@@ -22,6 +22,15 @@ function delBookListById(id) {
   return db.collection('book_list')
     .doc(id).remove()
 }
+/**
+ * 通过书单ID更改书单信息
+ * @param {书单ID} id 
+ * @param {书单} booklist 
+ */
+function updateBookListById(id,booklist){
+  console.log('updateBookListById',id,booklist)
+  return db.collection('book_list').doc(id).update({data:booklist})
+}
 
 /**
  * 从后台加载常用标签
@@ -30,6 +39,20 @@ function loadCommonTag(){
   return db.collection('tag')
   .orderBy('use_num','desc')
   .limit(10).get()
+}
+
+/**
+ * 加载常用标签不在指定 标签范围内
+ * @param {标签} tags 
+ */
+function loadCommonTagNotInArray(tags){
+ var _ =  db.command;
+ var where = {
+   name:_.nin(tags)
+ }
+ return db.collection('tag').where(where)
+ .orderBy('use_num','desc')
+ .limit(10).get()
 }
 /**
  * 保存书单到后台
@@ -136,6 +159,8 @@ function loadBooks(booklist_id){
 }
 
 
+
+
 module.exports = {
   delBookBylistId : delBookBylistId,
   delBookListById: delBookListById,
@@ -148,5 +173,7 @@ module.exports = {
   updateBook:updateBook,
   deleteBook:deleteBook,
   getBookList:getBookList,
-  loadBooks:loadBooks
+  loadBooks:loadBooks,
+  loadCommonTagNotInArray:loadCommonTagNotInArray,
+  updateBookListById:updateBookListById
 }

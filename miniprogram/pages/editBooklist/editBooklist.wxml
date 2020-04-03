@@ -1,10 +1,14 @@
 <view class='container'>
+	<i-modal title="{{modalTitle}}" visible="{{ modalVisible }}" actions="{{ modalActions }}" bind:click="handleModalClick">
+		<view>{{modalContent}}</view>
+    </i-modal>
   <form class='form' bindsubmit='formSubmit'>
     <view class='container-form'>
     <input name='name' type='text' class='input-name' placeholder='输入书单名字' value="{{bl.name}}" ></input>
 
     <textarea name='description' class='textarea-description' maxlength='140' placeholder='这里输入书单描述' auto-height='true' value='{{bl.description}}'></textarea>
 
+    <text class='text-tag-label'>标签(以空格隔开)</text>  
     <input name='tag' type='text' class='input-tag' placeholder='输入标签 以空格隔开' value='{{tagValue}}' bindinput='inputTagEvent' value='{{tagValue}}'></input>
 
 
@@ -20,8 +24,9 @@
 <!-- <checkbox-group name='private' class='checkbox-private'>
     <checkbox value='private'>私密</checkbox>
 </checkbox-group> -->
-    <button class='button-create' form-type='submit'>保存</button>
+    <button class='button-create' type="primary" loading="{{saving}}" form-type='submit'>保存</button>
      
+     <button class="button-create" type="warn" bindtap="onDeleteTap">删除</button>
 </view>
   </form>
 

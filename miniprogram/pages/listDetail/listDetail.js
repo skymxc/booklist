@@ -43,9 +43,20 @@ Page({
     }
   },
   onShow:function(){
-    if(this.data._id.length>0){
-      this.loadBooklist();
+    var res = wx.getStorageInfoSync()
+    console.log('res',res,res.keys.indexOf(app.data.markDeleteBooklist),app.data.markDeleteBooklist)
+    if(res.keys.indexOf(app.data.markDeleteBooklist)!=-1){
+      wx.removeStorageSync(app.data.markDeleteBooklist)
+      app.data.refresh =true
+        wx.navigateBack({
+          complete: (res) => {},
+        })
+    }else{
+      if(this.data._id.length>0){
+        this.loadBooklist();
+      }
     }
+   
   },
   /**
    * 用户点击右上角分享
@@ -128,7 +139,8 @@ Page({
         });
       } else {
         this.setData({
-          empty: true
+          empty: true,
+          books:[]
         });
         wx.showToast({
           title: '还没有添加书籍',
@@ -204,8 +216,28 @@ Page({
    * 编辑书单
    */
   onTapEditBookList: function() {
-    wx.showToast({
-      title: '编辑书单',
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
+    wx.setStorage({
+      key: 'editbooklist',
+      data: this.data.booklist,
+      success: function () {
+        wx.hideLoading()
+        app.navigateTo('../editBooklist/editBooklist')
+      },
+      fail: function (err) {
+        console.error('跳转到编辑失败', err)
+        wx.hideLoading()
+        wx.showModal({
+          cancelColor: 'cancelColor',
+          showCancel: false,
+          content: err.errMsg,
+          title: '跳转失败'
+        })
+
+      }
     })
   },
   /**
