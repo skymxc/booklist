@@ -1,9 +1,13 @@
 <view class='container'>
 
 	<view class="container-booklist">
-		<view class="booklist-name">{{booklist.name}}</view>
-		<view class="booklist-description">{{booklist.description}}</view>
+	
+		  <view class='booklist-name'>
+      <text class='text-booklist-name'>{{booklist.name}}</text>
+    </view>
+      <view class='vertical-line'></view>
 	</view>
+		<view class="booklist-description">{{booklist.description}}</view>
 	<view class='container-books' wx:if='{{books.length>0}}'>
 		<block wx:for='{{books}}' wx:for-item='book' wx:key='_id'>
 			<view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='onTapBook'>

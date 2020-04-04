@@ -2,39 +2,40 @@
 <view class='container'>
 
   <!-- 名字及作者信息 -->
-  <view class='container-author'>
-    <view class='vertical-line'></view>
+  <view wx:if="{{bl.name}}" class='container-booklist'>
+  
     <view class='container-author-text'>
       <text class='text-booklist-name'>{{bl.name}}</text>
-      <text class='text-author-name'>{{author.nickName}} </text>
     </view>
+      <view class='vertical-line'></view>
   </view>
 
   <!-- 描述 -->
   <view class='container-description'>
     {{bl.description}} 
-
   </view>
   <!-- 书籍列表 -->
-  <scroll-view class='scroll-book' wx:if='{{books.length>0}}' scroll-y>
+  <view wx:if="{{books.length>0}}" class="container-books">
     <block wx:for='{{books}}' wx:for-item='book' wx:key='_id'>
-      <view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='tapBook'>
-        <text class='text-book-name'>{{book.name}}</text>
-        <text class='text-book-description'>{{book.description}}</text>
+       <view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='onTapBook'>
+				<text class='text-book-name'>{{book.name}}</text>
+				<text class='text-book-author'>{{book.author}}</text>
       </view>
     </block>
-  </scroll-view> 
+</view>
   <!--没有书籍时 -->
-  <view class='contianer-empty' wx:else>
+  <view wx:if="{{empty}}" class='contianer-empty' >
     <!-- 没有添加书籍 -->
+   
   </view>
-  <!-- 操作按钮组 -->
-  <view class='container-tool'>
-    <button open-type='share' class='button-share button-tool'>
-      分享
-    </button>
-    <button class='button-index button-tool' bindtap='tapIndex'>首页</button>
-  </view>
+
+	<!-- 悬浮在右下侧的 -->
+	<view id="container-float">
+		<button class='btn-float ' open-type='share'>
+			<image src='../../images/share.png' class='image-icon'></image>
+			<view class="float-item-text">分享</view>
+		</button>
+	</view>
 
   
 </view>

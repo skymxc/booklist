@@ -1,24 +1,54 @@
 /* miniprogram/pages/listDetail/listDetail.wxss */
 
 .container-booklist{
+  background-color: white;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-content: flex-start;
+  flex-direction: row;
+  position: relative;
+}
+.vertical-line {
+  background-color: #090;
+  width: 10rpx;
+  height: 100%;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
 
 }
+
 .booklist-name{
-  font-size: 45rpx;
-  color: black;
-  margin-left: 20rpx;
-  font-weight: bold;
+  padding: 10rpx;
+  width: 100%;
+  padding-left: 20rpx;
+  
 }
 
-.booklist-description{
-  margin-left: 20rpx;
-  margin-top: 20rpx;
-  color: #333333;
+.text-booklist-name {
+  font-size: 40rpx;
+  color: black;
+  display: block;
+  margin-bottom: 10rpx;
+  font-style: 微软雅黑;
+  font-weight: bold;
+  overflow: hidden;
 }
+
+
+/* 描述 */
+
+.booklist-description {
+  color: #868686;
+  font-size: 30rpx;
+  width: 100%;
+  display: block;
+  padding-left: 20px;
+  padding-bottom: 5rpx;
+  padding-right: 10rpx;
+  background-color: white;
+}
+
 
 .container-empty {
   width: 100%;
@@ -26,7 +56,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
- padding-top: 100rpx;
+  padding-top: 100rpx;
 }
 
 .container-empty-list {
@@ -62,7 +92,8 @@
   align-items: center;
   margin-top: 20rpx
 }
-.container-book{
+
+.container-book {
   background-color: white;
   width: 90%;
   margin: 10rpx 20rpx 10rpx 20rpx;
@@ -73,14 +104,14 @@
   padding: 20rpx;
 }
 
-.text-book-name  {
+.text-book-name {
   color: black;
   font-weight: bold;
   font-size: 35rpx;
   display: block;
   line-height: 35rpx;
   margin-bottom: 10rpx;
-   text-overflow: ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -94,11 +125,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  
+
 }
 
 /* 悬浮 */
-#container-float{
+#container-float {
   box-sizing: border-box;
   width: 200rpx;
   min-height: 100rpx;
@@ -110,40 +141,42 @@
   flex-direction: column;
 }
 
-.btn-float{
+.btn-float {
   background-color: white;
-   padding: 0px;
-   width: 180rpx;
-   height: 70rpx;
-   font-size: 25rpx;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
+  padding: 0px;
+  width: 180rpx;
+  height: 70rpx;
+  font-size: 25rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   padding-left: 30rpx;
 
   margin-top: 20rpx;
 
-  
-}
-.btn-float::after{
-   /* border: none !important; */
-   border: 1rpx solide black;
-  
+
 }
 
-.image-icon{
+.btn-float::after {
+  /* border: none !important; */
+  border: 1rpx solide black;
+
+}
+
+.image-icon {
   width: 40rpx;
   height: 40rpx;
 }
-.icon{
+
+.icon {
   width: 50rpx;
   height: 50rpx;
 }
-.float-item-text{
+
+.float-item-text {
   margin-left: 30rpx;
 }
-.text-create{
+
+.text-create {
   margin-left: 15rpx;
 }
-
-

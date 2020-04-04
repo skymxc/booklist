@@ -1,31 +1,28 @@
+/* 头部 名字 */
 
-.container {
-  height: 100%;
-}
-
-/* 头部 名字及作者 */
-
-.container-author {
+.container-booklist{
+  background-color: white;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  padding-left: 20rpx;
-  height: 120rpx;
-  width: 100%;
+  position: relative;
 }
-
 .vertical-line {
   background-color: #090;
   width: 10rpx;
   height: 100%;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+
 }
 
-.container-author-text {
-  flex: 1;
-  /* height: 90%; */
-  display: flex;
-  flex-direction: column;
-  /* padding: 10rpx; */
-  margin-left: 10rpx;
+.container-author-text{
+  padding: 10rpx;
+  width: 100%;
+  padding-left: 20rpx;
+  
 }
 
 .text-booklist-name {
@@ -38,10 +35,6 @@
   overflow: hidden;
 }
 
-.text-author-name {
-  color: #bcbcbc;
-  /* font-size: 30rpx; */
-}
 
 /* 描述 */
 
@@ -51,48 +44,100 @@
   width: 100%;
   display: block;
   padding-left: 20px;
+  padding-bottom: 5rpx;
+  padding-right: 10rpx;
+  background-color: white;
 }
 
-/* 列表 */
-
-.scroll-book ,.contianer-empty{
+.container-books {
   width: 100%;
-  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-top: 20rpx
+}
+
+.container-book {
+  background-color: white;
+  width: 90%;
+  margin: 10rpx 20rpx 10rpx 20rpx;
+  max-height: 150rpx;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+}
+
+.text-book-name {
+  color: black;
+  font-weight: bold;
+  font-size: 35rpx;
+  display: block;
+  line-height: 35rpx;
+  margin-bottom: 10rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
 }
 
-@import "../../style/book.wxss";
-
-/* 操作按钮 */
-
-.container-tool {
-  height: 100rpx;
+.text-book-author {
+  color: #333333;
   width: 100%;
+  font-size: 29rpx;
+  text-align: right;
+  margin-top: 10rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+}
+
+/* 悬浮 */
+#container-float {
+  box-sizing: border-box;
+  width: 200rpx;
+  min-height: 100rpx;
+  overflow: auto;
+  position: fixed;
+  right: 10rpx;
+  bottom: 100rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-float {
+  background-color: white;
+  padding: 0px;
+  width: 180rpx;
+  height: 70rpx;
+  font-size: 25rpx;
   display: flex;
   flex-direction: row;
-
-}
-
-/* empty */
-
-.container-empty {
-  justify-content: center;
   align-items: center;
-}
-.button-tool{
-  flex: 1;
-  color: white;
-   border-radius: 0px;
-}
-.button-tool::after{
-  border: none !important;
+  padding-left: 30rpx;
+
+  margin-top: 20rpx;
+
 
 }
-.button-share{
-  background-color: green;
+
+.btn-float::after {
+  /* border: none !important; */
+  border: 1rpx solide black;
+
 }
-.button-index{
-  background-color: rosybrown;
+
+.image-icon {
+  width: 40rpx;
+  height: 40rpx;
 }
+
+.icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.float-item-text {
+  margin-left: 30rpx;
+}
+

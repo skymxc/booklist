@@ -152,8 +152,7 @@ function getBookList(id){
  */
 function loadBooks(booklist_id){
   var where = {
-    booklist_id: booklist_id,
-      _openid: getApp().globalData.openid
+    booklist_id: booklist_id
   }
   return db.collection('book').where(where).get()
 }

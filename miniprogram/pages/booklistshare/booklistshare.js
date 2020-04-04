@@ -4,6 +4,7 @@
  */
 const app = getApp();
 const db = wx.cloud.database();
+const Books = require('../../js/Book.js');
 Page({
 
   /**
@@ -13,7 +14,6 @@ Page({
     _id: '',
     books: [],
     bl: {},
-    author: {},
     empty: false
   },
 
@@ -23,32 +23,41 @@ Page({
   onLoad: function(options) {
     console.log('options', options);
     this.data._id = options._id;
-    this.load();
+    this.loadBooklist();
+    wx.startPullDownRefresh({
+      complete: (res) => {},
+    })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+    return {
+      title: this.data.booklist.name,
+      path:'/pages/booklistshare/booklistshare?_id='+this.data._id
+    }
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
-  },
-  load: function() {
-    this.loadBooklist();
-    // this.loadAuthor();
-    this.loadbooks();
-    wx.stopPullDownRefresh();
+    this.loadbooks()
   },
   loadBooklist: function() {
-    app.showLoading('加载中');
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
     var that = this;
-    console.log('_id',this.data._id)
-    db.collection('book_list').doc(this.data._id).get()
+    Books.getBookList(this.data._id)
       .then(res => {
         wx.hideLoading();
+          console.log('getBookList-',res)
         if (res.data) {
           that.setData({
             bl: res.data
           })
-          that.loadAuthor(res.data._openid);
+          
         } else {
           wx.showModal({
             title: '提示',
@@ -62,80 +71,69 @@ Page({
           })
         }
       }).catch(error => {
-        
+        console.error('getBookList-',error)
         wx.hideLoading();
         wx.showModal({
           title: '提示',
           content: error.errMsg,
           cancelText: '重试',
-          confirmText: '返回',
+          confirmText: '首页',
           success: function(res) {
             if (res.confirm) {
               wx.redirectTo({
                 url: '../booklist/booklist',
               })
-            } else {
-              that.load();
+            } else if(res.cancel) {
+              this.loadBooklist()
+              wx.startPullDownRefresh({
+                complete: (res) => {},
+              })
             }
           }
         })
       })
   },
   /**
-   * 加载作者
-   */
-  loadAuthor: function(authorid) {
-    wx.showLoading({
-      title: '加载中',
-    });
-    var that = this;
-    db.collection('user').where({
-      _openid: authorid
-      }).get()
-      .then(res => {
-        wx.hideLoading();
-        if (res.data.length > 0) {
-          that.setData({
-            author: res.data[0]
-          })
-        }
-      }).catch(error => {
-        wx.hideLoading();
-        app.showToast(error.errMsg);
-      });
-  },
-  /**
    * 加载书单的书
    */
   loadbooks: function() {
-    wx.showLoading({
-      title: '加载中',
-    });
+   
     var that = this;
-    db.collection('book').where({
-      booklist_id: this.data._id
-    }).get().then(res => {
-      wx.hideLoading();
+    Books.loadBooks(this.data._id)
+    .then(res => {
+     wx.stopPullDownRefresh({
+       complete: (res) => {},
+     })
+     console.log('loadbooks-',res)
       if (res.data.length > 0) {
         that.setData({
-          books: res.data
-        });
-        that.setData({
+          books: res.data,
           empty: false
         });
       } else {
         that.setData({
           empty: true
         });
+        wx.showToast({
+          title: '还没有添加书籍哦！',
+          icon:'none'
+        })
       }
     }).catch(error => {
-      wx.hideLoading();
+      console.log('loadbooks-',error)
+      wx.stopPullDownRefresh({
+        complete: (res) => {},
+      })
       wx.showModal({
-        title: '错误',
+        title: '书籍加载错误',
         content: error.errMsg,
-        showCancel: false,
+      confirmText:'重试',
         success: function(res) {
           if (res.confirm) {
+            wx.startPullDownRefresh({
+              complete: (res) => {},
+            })
+          }else if(res.cancel){
             that.setData({
               empty: true
             });
@@ -144,9 +142,27 @@ Page({
       })
     });
   },
-  tapIndex:function(){
-    wx.redirectTo({
-      url: '../booklist/booklist',
+  onTapBook:function(event){
+    var book = event.currentTarget.dataset.book;
+    wx.showLoading({
+      title: '加载中',
+      mask:true
+    })
+    wx.navigateTo({
+      url: '../bookDetail/bookDetail?_id='+book._id+'&name='+book.name+'&description='+book.description+'&booklist_id='+book.booklist_id+'&author='+book.author,
+      success:function(){
+        wx.hideLoading();
+      },
+      fail:function(error){
+        console.error('跳转错误',error.errMsg);
+        wx.hideLoading({
+          complete: (res) => {},
+        })
+        wx.showToast({
+          title: error.errMsg,
+          icon:'none'
+        })
+      }
     })
   }
 })
