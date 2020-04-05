@@ -217,7 +217,7 @@ Page({
               mask:true
             })
             wx.navigateTo({
-              url:'../addbook/addbook?booklist_id='+_id,
+              url:'../addbook/addbook?booklist_id='+_id+"&src=create",
               success:function(){
                 
                 wx.hideLoading();

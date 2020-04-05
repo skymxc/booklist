@@ -177,7 +177,7 @@ Page({
       }
       app.showLoadingMask('请稍候')
       wx.navigateTo({
-        url:'../addbook/addbook?booklist_id='+this.data._id,
+        url:'../addbook/addbook?booklist_id='+this.data._id+"&src=detail",
         success:function(){
           wx.hideLoading();
         },
@@ -196,8 +196,12 @@ Page({
       title: '加载中',
       mask:true
     })
+    var url ='../editbook/editbook?_id='+book._id+'&name='+book.name+'&description='+book.description+'&booklist_id='+book.booklist_id
+    if(book.author){//兼容之前版本没有作者
+      url ='../editbook/editbook?_id='+book._id+'&name='+book.name+'&description='+book.description+'&booklist_id='+book.booklist_id+'&author='+book.author
+    }
     wx.navigateTo({
-      url: '../editbook/editbook?_id='+book._id+'&name='+book.name+'&description='+book.description+'&booklist_id='+book.booklist_id+'&author='+book.author,
+      url: url,
       success:function(){
         wx.hideLoading();
       },

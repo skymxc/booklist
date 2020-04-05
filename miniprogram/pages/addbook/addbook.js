@@ -11,7 +11,8 @@ Page({
    */
   data: {
     booklist_id:'',
-    book:{}
+    book:{},
+    src:'create'
   },
   onLoad:function(event){
     // app.globalData.openid = 'okOSP4ucoDqhYq98HB3sfRDUW_0s'
@@ -19,6 +20,11 @@ Page({
     this.setData({
       booklist_id:event.booklist_id
     })
+    if(event.src){
+      this.setData({
+        src:event.src
+      })
+    }
   },
   formSubmit:function(event){
     var value = event.detail.value;
@@ -64,9 +70,16 @@ Page({
                   if(res.confirm){
                     
                   }else if(res.cancel){
+                    if('create'==this.data.src){
+                      wx.redirectTo({
+                        url: '../listDetail/listDetail?_id='+this.data.booklist_id,
+                      })
+                    }else{
                       wx.navigateBack({
                         complete: (res) => {},
                       })
+                    }
+                     
                   }
                 }
               })

@@ -17,7 +17,7 @@ App({
     } else {
       wx.cloud.init({
         traceUser: true,
-        env: 'test-37b711'
+        env: 'release-5zcgc'
       })
     }
 

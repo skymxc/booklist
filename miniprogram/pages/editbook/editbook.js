@@ -17,13 +17,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+      console.log('onload,',options)
       if(options.name){
           var book={
             name:options.name,
             description:options.description,
             _id:options._id,
-            booklist_id:options.booklist_id
+            booklist_id:options.booklist_id,
+            author:options.author
           }
           this.setData({
             book:book
