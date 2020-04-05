@@ -16,7 +16,7 @@
 <!-- 卡片列表 -->
 	<view wx:if='{{bookList.length>0}}' class='container-booklist'>
 		<block wx:for='{{bookList}}' wx:for-item='book' wx:key='_id'>
-			<view class='container-book' data-book='{{book}}' bindtap='tapBook' data-index='{{index}}' bindlongpress='longTapBook'>
+			<view class='container-book' data-book='{{book}}' bindtap='tapBook' data-index='{{index}}' bindlongpress='longTapBook' >
 				<text class='text-book-name'>{{book.name}} </text>
 				<text class='text-book-description'>{{book.description}} </text>
 			</view>

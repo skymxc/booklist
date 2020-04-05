@@ -6,6 +6,12 @@ const Users = require('../../js/User.js');
 const Books = require('../../js/Book.js');
 const app = getApp();
 const db = wx.cloud.database();
+
+var startX, endX;
+
+var moveFlag = true;// 判断执行滑动事件
+
+
 Page({
 
   /**
@@ -67,10 +73,10 @@ Page({
   onShow:function(options){
     console.log('onShow')
     if(app.globalData.openid){
-     if(app.data.refresh){
+     if(app.data.markRefresh){
        wx.startPullDownRefresh({
          complete: (res) => {
-           app.data.refresh =false
+           app.data.markRefresh =false
          },
        })
      }
@@ -318,5 +324,37 @@ Page({
       })
 
     }
+  },
+  onTouchStart:function(event){
+    startX = event.touches[0].pageX; // 获取触摸时的原点
+    console.log('onTouchStart',event)
+    moveFlag = true;
+
+  },
+  onTouchMove:function(event){
+    endX = event.touches[0].pageX; // 获取触摸时的原点
+
+    if (moveFlag) {
+
+      if (endX - startX > 50) {
+
+        console.log("move right");
+
+        moveFlag = false;
+
+      }
+
+      if (startX - endX > 50) {
+
+        console.log("move left");
+
+        moveFlag = false;
+
+      }
+
+    }
+  },
+  onTouchEnd:function(event){
+    moveFlag = true; // 恢复滑动事件
   }
 })

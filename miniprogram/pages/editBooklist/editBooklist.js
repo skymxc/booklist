@@ -150,7 +150,7 @@ Page({
         wx.showToast({
           title: '成功',
         })
-        app.data.refresh = true
+        app.data.markRefresh = true
     }else{
        wx.showToast({
          title: '没有保存成功哦',
@@ -247,6 +247,7 @@ Page({
             wx.showToast({
               title: '删除成功',
             })
+           
            wx.showModal({
              title:'删除成功',
              content:'成功删除 「'+this.data.bl.name+'」及书籍',
@@ -313,7 +314,7 @@ Page({
       title: '加载中',
       mask:true
     })
-    
+    app.data.markRefresh = true
     wx.setStorage({
       data: 'true',
       key: app.data.markDeleteBooklist

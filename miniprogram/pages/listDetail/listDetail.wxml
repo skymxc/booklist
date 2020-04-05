@@ -10,7 +10,7 @@
 		<view class="booklist-description">{{booklist.description}}</view>
 	<view class='container-books' wx:if='{{books.length>0}}'>
 		<block wx:for='{{books}}' wx:for-item='book' wx:key='_id'>
-			<view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='onTapBook'>
+			<view class='container-book' data-book='{{book}}' data-index='{{index}}' bindtap='onTapBook' >
 				<text class='text-book-name'>{{book.name}}</text>
 				<text class='text-book-author'>{{book.author}}</text>
 			</view>

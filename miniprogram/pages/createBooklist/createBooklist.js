@@ -41,6 +41,14 @@ Page({
     this.loadTag();
     
   },
+  onShow:function(event){
+    if(app.data.markCreateBLClose){
+      app.data.markCreateBLClose =false
+      wx.navigateBack({
+        complete: (res) => {},
+      })
+    }
+  },
 
   /**
    * 书单标签被点击
@@ -180,6 +188,8 @@ Page({
     })
     if (res._id) {
       //创建成功
+      app.data.markRefresh =true
+      app.data.markCreateBLClose =true
       var _id = res._id;
       Books.calculateTag(this.data.booklist.tag)
       wx.showModal({
@@ -209,6 +219,7 @@ Page({
             wx.navigateTo({
               url:'../addbook/addbook?booklist_id='+_id,
               success:function(){
+                
                 wx.hideLoading();
               }
             });

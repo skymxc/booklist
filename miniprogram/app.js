@@ -6,7 +6,8 @@
 App({
   data:{
     markDeleteBooklist:'deleteBookList',
-    markRefresh:false
+    markRefresh:false,
+    markCreateBLClose:false
   },
   onLaunch: function(options) {
     
