@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
     touser: wxContext.OPENID,
     msgtype: 'text',
     text: {
-      content: '收到,更多建议关注公众号 佛系编码 留言即可。',
+      content: '收到,感谢意见！如果有更多的建议关注公众号「 佛系编码 」留言即可。',
     },
   })
   var message = {
