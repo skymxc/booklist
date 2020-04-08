@@ -230,7 +230,9 @@ Page({
       data: this.data.booklist,
       success: function () {
         wx.hideLoading()
-        app.navigateTo('../editBooklist/editBooklist')
+        wx.navigateTo({
+          url: '../editBooklist/editBooklist',
+        })
       },
       fail: function (err) {
         console.error('跳转到编辑失败', err)
